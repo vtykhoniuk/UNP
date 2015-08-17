@@ -3,7 +3,12 @@ INCDIR=./include
 BINDIR=./bin
 OBJDIR=./.obj
 
-LIBCERROR_PATH = /Users/vtykhoniuk/Documents/Development/TOOLCHAIN
+ifneq ($(MAKECMDGOALS), clean)
+ifeq ($(LIBCERROR_PATH), )
+$(error LIBCERROR_PATH not defined)
+endif
+endif
+
 LIBCERROR_INCLUDE = $(addprefix $(LIBCERROR_PATH)/, include)
 LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libCError.a)
 
