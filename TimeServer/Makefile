@@ -1,0 +1,34 @@
+SRCDIR=./src
+INCDIR=./include
+BINDIR=./bin
+OBJDIR=./.obj
+
+LIBCERROR_PATH = /Users/vtykhoniuk/Documents/Development/TOOLCHAIN
+LIBCERROR_INCLUDE = $(addprefix $(LIBCERROR_PATH)/, include)
+LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libCError.a)
+
+CFLAGS = -I$(INCDIR) -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+
+
+TIME_SERVER_ITERATIVE = $(addprefix $(BINDIR)/, timeserver_iterative)
+TIME_SERVER_ITERATIVE_OBJ = $(addprefix $(OBJDIR)/, timeserver_iterative.o)
+
+OBJ = $(TIME_SERVER_ITERATIVE_OBJ)
+
+
+all: $(TIME_SERVER_ITERATIVE) 
+.PHONY : all clean
+
+$(OBJDIR) $(BINDIR):
+	@if [ ! -d $@ ]; then echo "mkdir $@" && mkdir $@; fi
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(OBJ): | $(OBJDIR)
+
+$(TIME_SERVER_ITERATIVE): $(TIME_SERVER_ITERATIVE_OBJ) | $(BINDIR)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBCERROR)
+
+clean:
+	rm -rf $(OBJDIR) $(BINDIR)
