@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 
 #include "CError.h"
+#include "CNet.h"
 
 #define PORT    1333
 #define LINE_MAX    256
@@ -44,12 +45,10 @@ int main()
         snprintf(buf, LINE_MAX, "Connection from ip [%s] port [%d]\n", ip, ntohs(client_addr.sin_port));
         printf("%s", buf);
 
-        if (close(connfd) != 0)
-            err_sys("Failed closing socket");
+        Close(connfd);
     }
 
-    if (close(listenfd) != 0)
-        err_sys("Failed closing socket");
+    Close(listenfd);
 
     exit(EXIT_SUCCESS);
 }

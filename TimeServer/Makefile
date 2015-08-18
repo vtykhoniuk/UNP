@@ -7,12 +7,18 @@ ifneq ($(MAKECMDGOALS), clean)
 ifeq ($(LIBCERROR_PATH), )
 $(error LIBCERROR_PATH not defined)
 endif
+ifeq ($(LIBCNET_PATH), )
+$(error LIBCNET_PATH not defined)
+endif
 endif
 
 LIBCERROR_INCLUDE = $(addprefix $(LIBCERROR_PATH)/, include)
-LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libCError.a)
+LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libcerror.a)
 
-CFLAGS = -I$(INCDIR) -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+LIBCNET_INCLUDE = $(addprefix $(LIBCNET_PATH)/, include)
+LIBCNET = $(addprefix $(LIBCNET_PATH)/lib/, libcnet.a)
+
+CFLAGS = -I$(INCDIR) -I$(LIBCERROR_INCLUDE) -I$(LIBCNET_INCLUDE) -O1 -Wall -Werror
 
 
 TIME_SERVER_ITERATIVE = $(addprefix $(BINDIR)/, timeserver_iterative)
@@ -33,7 +39,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 $(OBJ): | $(OBJDIR)
 
 $(TIME_SERVER_ITERATIVE): $(TIME_SERVER_ITERATIVE_OBJ) | $(BINDIR)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBCERROR)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBCERROR) $(LIBCNET)
 
 clean:
 	rm -rf $(OBJDIR) $(BINDIR)
