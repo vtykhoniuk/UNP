@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 
 #include "CError.h"
-#include "CNet.h"
+#include "CWraperUNIX.h"
 
 #define PORT    1333
 #define LINE_MAX    256
