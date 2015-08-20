@@ -2,11 +2,13 @@
 # Target makefile should look like:
 # 
 # LIB_NAME = test
+# LIB_DEPS = test.h
 # LIB_OBJS = test.o
 # include ../Make.lib
 
 AR              = ar
 RANLIB          = ranlib
+INSTALL         = install
 
 # Identify the path to the Makefile
 # We need this path to correctly include Make.def
@@ -23,3 +25,11 @@ CLEANFILES      = $(STATIC_LIB_NAME) $(LIB_OBJS)
 all: $(LIB_OBJS)
 	$(AR) rv $(STATIC_LIB_NAME) $?
 	$(RANLIB) $(STATIC_LIB_NAME)
+
+install: all
+ifndef INSTALL_PREFIX
+	$(error INSTALL_PREFIX is not defined)
+else
+	$(INSTALL) $(STATIC_LIB_NAME) $(INSTALL_PREFIX)/lib/
+	$(INSTALL) $(LIB_DEPS) $(INSTALL_PREFIX)/include/
+endif
