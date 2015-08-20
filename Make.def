@@ -15,6 +15,7 @@ _LIBCERROR          = libcerror
 _LIBCERROR_STATIC   = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCERROR))
 LIBCERROR_STATIC    = $(addprefix $(LIBCERROR_PATH)/lib/, $(_LIBCERROR_STATIC))
 
+CC                  = gcc
 CFLAGS              = -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
 
 .PHONY : all clean
