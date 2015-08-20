@@ -23,8 +23,8 @@ $(info Library name: $(STATIC_LIB_NAME))
 CLEANFILES      = $(STATIC_LIB_NAME) $(LIB_OBJS)
 
 all: $(LIB_OBJS)
-	$(AR) rv $(STATIC_LIB_NAME) $?
-	$(RANLIB) $(STATIC_LIB_NAME)
+	$(info Constructing $(STATIC_LIB_NAME))
+	$(AR) rcs $(STATIC_LIB_NAME) $?
 
 install: all
 ifndef INSTALL_PREFIX
