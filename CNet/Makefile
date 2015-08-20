@@ -9,7 +9,7 @@ endif
 endif
 
 LIBCERROR_INCLUDE = $(addprefix $(LIBCERROR_PATH)/, include)
-LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libCError.a)
+LIBCERROR = $(addprefix $(LIBCERROR_PATH)/lib/, libcerror.a)
 
 CFLAGS = -I$(INCDIR) -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
 
@@ -17,7 +17,7 @@ _CNET = cnet
 _LIBCNET = $(addprefix lib, $(_CNET))
 LIBCNET = $(addprefix $(SRCDIR)/, $(_LIBCNET).a)
 LIBCNET_OBJ = $(addprefix $(OBJDIR)/, $(_LIBCNET).o)
-LIBCNETDEPS = $(addprefix $(INCDIR)/, $(_CNET).h)
+LIBCNETDEPS = $(addprefix $(INCDIR)/, CNet.h)
 
 OBJ = $(LIBCNET_OBJ)
 
