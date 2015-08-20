@@ -5,7 +5,9 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <strings.h>
+#include <string.h>
 #include <arpa/inet.h>
+#include <time.h>
 
 #include "CError.h"
 #include "CWraperUNIX.h"
@@ -18,7 +20,8 @@ int main()
     int listenfd, connfd;
     struct sockaddr_in serv_addr, client_addr;
     socklen_t client_addr_len = sizeof(client_addr);
-    char buf[LINE_MAX+1], ip[INET_ADDRSTRLEN];
+    char buff[LINE_MAX+1], ip[INET_ADDRSTRLEN];
+    time_t ticks;
 
     listenfd = Socket(PF_INET, SOCK_STREAM, 0);
 
@@ -37,8 +40,16 @@ int main()
         if (inet_ntop(AF_INET, &client_addr.sin_addr, ip, client_addr_len) == NULL)
             err_sys("Failed getting client IP");
 
-        snprintf(buf, LINE_MAX, "Connection from ip [%s] port [%d]\n", ip, ntohs(client_addr.sin_port));
-        printf("%s", buf);
+        if (snprintf(buff, LINE_MAX, "Connection from ip [%s] port [%d]", ip, ntohs(client_addr.sin_port)) < 0)
+            err_sys("snprintf error");
+
+        printf("%s\n", buff);
+
+        ticks = time(NULL);
+        if (snprintf(buff, LINE_MAX, "%s\r\n", ctime(&ticks)) < 0)
+            err_sys("snprintf error");
+
+        Write(connfd, buff, strlen(buff));
 
         Close(connfd);
     }

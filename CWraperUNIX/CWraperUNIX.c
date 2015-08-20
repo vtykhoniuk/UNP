@@ -12,6 +12,16 @@ void Close(int fd)
         err_sys("close error");
 }
 
+pid_t Fork()
+{
+    pid_t pid;
+
+    if ((pid = fork()) == -1)
+        err_sys("fork error");
+
+    return pid;
+}
+
 int Socket(int domain, int type, int protocol)
 {
     int fd;
@@ -42,4 +52,10 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
         err_sys("accept error");
 
     return fd;
+}
+
+void Write(int fd, const void *buf, size_t count)
+{
+    if (write(fd, buf, count) != count)
+        err_sys("write error");
 }
