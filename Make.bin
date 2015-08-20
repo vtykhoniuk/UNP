@@ -1,0 +1,30 @@
+# Auxiliary makefile for static library builds
+# Target makefile should look like:
+#
+# PROGS = prog1 prog2
+# OBJS = prog1.o prog2.o
+# include ../Make.bin
+# prog1: ...
+#   $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBCERROR_STATIC) $(LIBCWRAPERUNIX_STATIC)
+
+# Identify the path to the Makefile
+# We need this path to correctly include Make.def
+PATH_TO_MYSELF  = $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_DEF        = $(addprefix $(PATH_TO_MYSELF), Make.def)
+$(info Make.def: $(MAKE_DEF))
+include $(MAKE_DEF)
+
+ifneq ($(MAKECMDGOALS), clean)
+ifeq ($(LIBCWRAPERUNIX_PATH), )
+$(error LIBCWRAPERUNIX_PATH not defined)
+endif
+endif
+
+LIBCWRAPERUNIX_INCLUDE   = $(addprefix $(LIBCWRAPERUNIX_PATH)/, include)
+_LIBCWRAPERUNIX          = libcwraperunix
+_LIBCWRAPERUNIX_STATIC   = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCWRAPERUNIX))
+LIBCWRAPERUNIX_STATIC    = $(addprefix $(LIBCWRAPERUNIX_PATH)/lib/, $(_LIBCWRAPERUNIX_STATIC))
+
+CLEANFILES      = $(PROGS) $(OBJS)
+
+all: ${PROGS}
