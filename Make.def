@@ -1,0 +1,26 @@
+MODULE = $(dir $(lastword $(MAKEFILE_LIST)))
+
+# A suffix for static libraries
+# We need it to build fully qualified paths for static libraries
+STATIC_LIB_SUFFIX = .a
+
+# Static libcerror library is used in each project.
+# We need to check whether LIBCERROR_PATH is defined before doing anything
+ifneq ($(MAKECMDGOALS), clean)
+ifeq ($(LIBCERROR_PATH), )
+$(error LIBCERROR_PATH not defined)
+endif
+endif
+
+LIBCERROR_INCLUDE   = $(addprefix $(LIBCERROR_PATH)/, include)
+_LIBCERROR          = libcerror
+_LIBCERROR_STATIC   = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCERROR))
+LIBCERROR_STATIC    = $(addprefix $(LIBCERROR_PATH)/lib/, $(_LIBCERROR_STATIC))
+
+CFLAGS              = -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+
+.PHONY : all clean
+.DEFAULT_GOAL = all
+
+clean:
+	rm -f $(CLEANFILES)

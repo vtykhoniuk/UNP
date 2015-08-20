@@ -1,0 +1,25 @@
+# Auxiliary makefile for static library builds
+# Target makefile should look like:
+# 
+# LIB_NAME = test
+# LIB_OBJS = test.o
+# include ../Make.lib
+
+AR              = ar
+RANLIB          = ranlib
+
+# Identify the path to the Makefile
+# We need this path to correctly include Make.def
+PATH_TO_MYSELF  = $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_DEF        = $(addprefix $(PATH_TO_MYSELF), Make.def)
+$(info Make.def: $(MAKE_DEF))
+include $(MAKE_DEF)
+
+STATIC_LIB_NAME = $(addsuffix $(STATIC_LIB_SUFFIX), $(LIB_NAME))
+$(info Library name: $(STATIC_LIB_NAME))
+
+CLEANFILES      = $(STATIC_LIB_NAME) $(LIB_OBJS)
+
+all: $(LIB_OBJS)
+	$(AR) rv $(STATIC_LIB_NAME) $?
+	$(RANLIB) $(STATIC_LIB_NAME)
