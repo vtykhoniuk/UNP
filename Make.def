@@ -1,5 +1,3 @@
-MODULE = $(dir $(lastword $(MAKEFILE_LIST)))
-
 # A suffix for static libraries
 # We need it to build fully qualified paths for static libraries
 STATIC_LIB_SUFFIX = .a
