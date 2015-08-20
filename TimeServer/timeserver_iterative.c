@@ -20,24 +20,19 @@ int main()
     socklen_t client_addr_len = sizeof(client_addr);
     char buf[LINE_MAX+1], ip[INET_ADDRSTRLEN];
 
-    listenfd = socket(PF_INET, SOCK_STREAM, 0);
-    if (listenfd == -1)
-        err_sys("Failed openning socket");
+    listenfd = Socket(PF_INET, SOCK_STREAM, 0);
 
     bzero(&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    if (bind(listenfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0)
-        err_sys("Failed bind socket");
+    Bind(listenfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
 
-    if (listen(listenfd, 2) != 0)
-        err_sys("Failed listen on socket");
+    Listen(listenfd, 2);
 
     for (;;) {
-        if ((connfd = accept(listenfd, (struct sockaddr *) &client_addr, &client_addr_len)) == -1)
-            err_sys("Failed accept connection");
+        connfd = Accept(listenfd, (struct sockaddr *) &client_addr, &client_addr_len);
 
         if (inet_ntop(AF_INET, &client_addr.sin_addr, ip, client_addr_len) == NULL)
             err_sys("Failed getting client IP");
