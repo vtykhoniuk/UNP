@@ -1,11 +1,14 @@
 # Auxiliary makefile for static library builds
 # Target makefile should look like:
 #
-# PROGS = prog1 prog2
-# OBJS = prog1.o prog2.o
+# PROGS = test
+# PROG1_OBJS = test.c
+# OBJS = $(PROG1_OBJS)
+#
 # include ../Make.bin
-# prog1: ...
-#   $(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBCERROR_STATIC) $(LIBCWRAPERUNIX_STATIC)
+#
+# prog1: $(PROG1_OBJS)
+#   $(CC) $(CFLAGS) -o $@ $? $(LIBCERROR_STATIC) $(LIBCWRAPERUNIX_STATIC)
 
 # Identify the path to the Makefile
 # We need this path to correctly include Make.def
