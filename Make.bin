@@ -1,8 +1,8 @@
-# Auxiliary makefile for static library builds
+# Auxiliary makefile for binary programs builds
 # Target makefile should look like:
 #
 # PROGS = test
-# PROG1_OBJS = test.c
+# PROG1_OBJS = test.o
 # OBJS = $(PROG1_OBJS)
 #
 # include ../Make.bin
