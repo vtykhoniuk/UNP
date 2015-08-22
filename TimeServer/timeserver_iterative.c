@@ -1,16 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-   strlen
-*/
-#include <string.h>
-
-/*
-   time
-*/
-#include <time.h>
-
 #include "CNet.h"
 
 #define PORT        1333

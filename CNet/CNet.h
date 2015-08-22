@@ -21,6 +21,9 @@
 */
 #include <arpa/inet.h>
 
+#include <string.h>
+#include <time.h>
+
 /*
    err_sys
    err_ret

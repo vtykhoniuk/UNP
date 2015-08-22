@@ -1,7 +1,5 @@
 #include "CNet.h"
 
-#include <string.h>
-
 char *sock_ntop(const SA *sa, socklen_t salen)
 {
     static char str[128];
