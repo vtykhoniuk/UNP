@@ -1,11 +1,5 @@
 #include "CNet.h"
 
-#include <errno.h>
-
-/*
-   write
-*/
-#include <unistd.h>
 
 void sock_write(int sockfd, const void *buf, size_t n)
 {
