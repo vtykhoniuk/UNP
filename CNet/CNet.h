@@ -49,5 +49,6 @@ char *sock_ntop(const SA *sa, socklen_t salen);
    (because of sys interrupt EINTR or net buffer overflow)
 */
 void sock_write(int sockfd, const void *buf, size_t n);
+size_t sock_read(int sockfd, void *buf, size_t n);
 
 #endif // CNET_H
