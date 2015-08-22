@@ -34,7 +34,7 @@ int main()
         ticks = time(NULL);
         Snprintf(buff, LINE_MAX, "%s\r\n", ctime(&ticks));
 
-        Write(connfd, buff, strlen(buff));
+        sock_write(connfd, buff, strlen(buff));
 
         Close(connfd);
     }
