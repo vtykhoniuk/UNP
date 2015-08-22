@@ -43,4 +43,8 @@ typedef struct sockaddr SA;
 */
 char *sock_ntop(const SA *sa, socklen_t salen);
 
+/*
+*/
+void sock_write(int sockfd, const void *buf, size_t n);
+
 #endif // CNET_H
