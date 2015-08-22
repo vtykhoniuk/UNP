@@ -3,7 +3,7 @@
 # 
 # LIB_NAME = test
 # LIB_DEPS = test.h
-# LIB_OBJS = test.o
+# LIB_PIECES = test1 test2 test3
 # include ../Make.lib
 
 AR              = ar
@@ -21,6 +21,7 @@ STATIC_LIB_NAME = $(addsuffix $(STATIC_LIB_SUFFIX), $(LIB_NAME))
 $(info Library name: $(STATIC_LIB_NAME))
 
 CLEANFILES      = $(STATIC_LIB_NAME) $(LIB_OBJS)
+LIB_OBJS        = $(foreach p, $(LIB_PIECES), $(addsuffix .o, $(p)))
 
 all: $(LIB_OBJS)
 	$(info Constructing $(STATIC_LIB_NAME))

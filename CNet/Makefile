@@ -1,4 +1,4 @@
-LIB_NAME = libcnet
-LIB_DEPS = CNet.h
-LIB_OBJS = sock_ntop.o sock_write.o sock_read.o
+LIB_NAME    = libcnet
+LIB_DEPS    = CNet.h
+LIB_PIECES  = sock_ntop sock_write sock_read
 include ../Make.lib

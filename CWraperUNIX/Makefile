@@ -1,4 +1,4 @@
 LIB_NAME = libcwraperunix
 LIB_DEPS = CWraperUNIX.h
-LIB_OBJS = CWraperUNIX.o
+LIB_PIECES = CWraperUNIX
 include ../Make.lib
