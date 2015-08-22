@@ -1,7 +1,15 @@
 #ifndef CWRAPERUNIX_H
 #define CWRAPERUNIX_H
 
+/*
+   typedef socklen_t
+   struct sockaddr
+*/
 #include <arpa/inet.h>
+
+/*
+   typedef size_t
+*/
 #include <sys/types.h>
 
 void Close(int);
