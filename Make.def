@@ -2,21 +2,44 @@
 # We need it to build fully qualified paths for static libraries
 STATIC_LIB_SUFFIX = .a
 
-# Static libcerror library is used in each project.
-# We need to check whether LIBCERROR_PATH is defined before doing anything
+# Static libcerror library
 ifneq ($(MAKECMDGOALS), clean)
 ifeq ($(LIBCERROR_PATH), )
 $(error LIBCERROR_PATH not defined)
 endif
 endif
 
-LIBCERROR_INCLUDE   = $(addprefix $(LIBCERROR_PATH)/, include)
-_LIBCERROR          = libcerror
-_LIBCERROR_STATIC   = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCERROR))
-LIBCERROR_STATIC    = $(addprefix $(LIBCERROR_PATH)/lib/, $(_LIBCERROR_STATIC))
+# Static libcwraperunix library
+ifneq ($(MAKECMDGOALS), clean)
+ifeq ($(LIBCWRAPERUNIX_PATH), )
+$(error LIBCWRAPERUNIX_PATH not defined)
+endif
+endif
 
-CC                  = gcc
-CFLAGS              = -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+# Static libcnet library
+ifneq ($(MAKECMDGOALS), clean)
+ifeq ($(LIBCNET_PATH), )
+$(error LIBCNET_PATH not defined)
+endif
+endif
+
+LIBCERROR_INCLUDE       = $(addprefix $(LIBCERROR_PATH)/, include)
+_LIBCERROR              = libcerror
+_LIBCERROR_STATIC       = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCERROR))
+LIBCERROR_STATIC        = $(addprefix $(LIBCERROR_PATH)/lib/, $(_LIBCERROR_STATIC))
+
+LIBCWRAPERUNIX_INCLUDE  = $(addprefix $(LIBCWRAPERUNIX_PATH)/, include)
+_LIBCWRAPERUNIX         = libcwraperunix
+_LIBCWRAPERUNIX_STATIC  = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCWRAPERUNIX))
+LIBCWRAPERUNIX_STATIC   = $(addprefix $(LIBCWRAPERUNIX_PATH)/lib/, $(_LIBCWRAPERUNIX_STATIC))
+
+LIBCNET_INCLUDE         = $(addprefix $(LIBCNET_PATH)/, include)
+_LIBCNET                = libcnet
+_LIBCNET_STATIC         = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCNET))
+LIBCNET_STATIC          = $(addprefix $(LIBCNET_PATH)/lib/, $(_LIBCNET_STATIC))
+
+CC                      = gcc
+CFLAGS                  = -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
 
 .PHONY : all clean
 .DEFAULT_GOAL = all

@@ -17,17 +17,6 @@ MAKE_DEF        = $(addprefix $(PATH_TO_MYSELF), Make.def)
 $(info Make.def: $(MAKE_DEF))
 include $(MAKE_DEF)
 
-ifneq ($(MAKECMDGOALS), clean)
-ifeq ($(LIBCWRAPERUNIX_PATH), )
-$(error LIBCWRAPERUNIX_PATH not defined)
-endif
-endif
-
-LIBCWRAPERUNIX_INCLUDE   = $(addprefix $(LIBCWRAPERUNIX_PATH)/, include)
-_LIBCWRAPERUNIX          = libcwraperunix
-_LIBCWRAPERUNIX_STATIC   = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCWRAPERUNIX))
-LIBCWRAPERUNIX_STATIC    = $(addprefix $(LIBCWRAPERUNIX_PATH)/lib/, $(_LIBCWRAPERUNIX_STATIC))
-
 CLEANFILES      = $(PROGS) $(OBJS)
 
 all: ${PROGS}
