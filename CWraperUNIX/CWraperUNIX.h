@@ -18,4 +18,6 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 void Write(int fd, const void *buf, size_t count);
 
+void Snprintf(char * restrict str, size_t size, const char * restrict format, ...);
+
 #endif // CWRAPERUNIX_H

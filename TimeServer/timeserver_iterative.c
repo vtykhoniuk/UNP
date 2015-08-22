@@ -12,7 +12,7 @@
 #include "CError.h"
 #include "CWraperUNIX.h"
 
-#define PORT    1333
+#define PORT        1333
 #define LINE_MAX    256
 
 int main()
@@ -40,14 +40,11 @@ int main()
         if (inet_ntop(AF_INET, &client_addr.sin_addr, ip, client_addr_len) == NULL)
             err_sys("Failed getting client IP");
 
-        if (snprintf(buff, LINE_MAX, "Connection from ip [%s] port [%d]", ip, ntohs(client_addr.sin_port)) < 0)
-            err_sys("snprintf error");
-
+        Snprintf(buff, LINE_MAX, "Connection from ip [%s] port [%d]", ip, ntohs(client_addr.sin_port));
         printf("%s\n", buff);
 
         ticks = time(NULL);
-        if (snprintf(buff, LINE_MAX, "%s\r\n", ctime(&ticks)) < 0)
-            err_sys("snprintf error");
+        Snprintf(buff, LINE_MAX, "%s\r\n", ctime(&ticks));
 
         Write(connfd, buff, strlen(buff));
 

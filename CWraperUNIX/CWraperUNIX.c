@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 
 void Close(int fd)
@@ -58,4 +60,16 @@ void Write(int fd, const void *buf, size_t count)
 {
     if (write(fd, buf, count) != count)
         err_sys("write error");
+}
+
+void Snprintf(char * restrict str, size_t size, const char * restrict format, ...)
+{
+    va_list ap;
+
+    va_start(ap, format);
+
+    if (vsnprintf(str, size, format, ap) < 0)
+        err_sys("vsnprintf error");
+
+    va_end(ap);
 }
