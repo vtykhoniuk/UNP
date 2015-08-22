@@ -12,6 +12,11 @@
 */
 #include <sys/types.h>
 
+/*
+   typedef FILE
+*/
+#include <stdio.h>
+
 
 void Close(int);
 
@@ -28,5 +33,9 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 void Write(int fd, const void *buf, size_t count);
 
 void Snprintf(char * restrict str, size_t size, const char * restrict format, ...);
+
+void Fputs(const char *restrict s, FILE *restrict stream);
+
+char* Fgets(char * restrict str, int size, FILE * restrict stream);
 
 #endif // CWRAPERUNIX_H

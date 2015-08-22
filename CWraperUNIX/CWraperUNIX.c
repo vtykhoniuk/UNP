@@ -73,3 +73,19 @@ void Snprintf(char * restrict str, size_t size, const char * restrict format, ..
 
     va_end(ap);
 }
+
+void Fputs(const char *restrict s, FILE *restrict stream)
+{
+    if (fputs(s, stream) == EOF)
+        err_sys("fputs error");
+}
+
+char* Fgets(char * restrict str, int size, FILE * restrict stream)
+{
+    char *rptr;
+
+    if ((rptr = fgets(str, size, stream)) == NULL && ferror(stream))
+        err_sys("fgets error");
+
+    return rptr;
+}
