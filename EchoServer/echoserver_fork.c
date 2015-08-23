@@ -5,6 +5,7 @@
 #define LOGLINE_MAX     1024
 
 void str_echo(int);
+void sig_chld(int);
 
 int main()
 {
@@ -15,6 +16,8 @@ int main()
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
+
+    Signal(SIGCHLD, sig_chld);
 
     listenfd = Socket(PF_INET, SOCK_STREAM, 0);
     servaddr.sin_family = AF_INET;
@@ -56,4 +59,23 @@ void str_echo(int sockfd)
         goto again;
     else if (readn < 0)
         err_sys("read error");
+}
+
+void sig_chld(int signo)
+{
+    pid_t chld_pid;
+    int chld_status;
+    char buf[CNET_MAXLINE];
+
+    while ((chld_pid = waitpid(-1, &chld_status, WNOHANG)) > 0) {
+        Snprintf(buf, sizeof buf, "Utilizing child [%ld], status [%d]\n", chld_pid, chld_status);
+        Fputs(buf, stderr);
+    }
+
+    /* Not really necessary, though this is a way to show that
+       system calls that were run when the handler has been invoced MIGHT
+       exit with errno == EINTR. This is a good style to make sure your code
+       handles such cases gracefuly (UNP p.134)
+    */
+    return;
 }
