@@ -20,3 +20,9 @@ Sigfunc* signal(int signo, Sigfunc* func)
 
     return oact.sa_handler;
 }
+
+void Signal(int signo, Sigfunc* func)
+{
+    if (signal(signo, func) == SIG_ERR)
+        err_sys("signal error");
+}
