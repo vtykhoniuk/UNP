@@ -89,3 +89,15 @@ char* Fgets(char * restrict str, int size, FILE * restrict stream)
 
     return rptr;
 }
+
+void Inet_pton(int af, const char * restrict src, void * restrict dst)
+{
+    if (inet_pton(af, src, dst) != 1)
+        err_sys("inet_pton error");
+}
+
+void Connect(int socket, const struct sockaddr *address, socklen_t address_len)
+{
+    if (connect(socket, address, address_len) != 0)
+        err_sys("connect error");
+}

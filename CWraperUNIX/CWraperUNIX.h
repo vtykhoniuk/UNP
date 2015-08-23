@@ -38,4 +38,8 @@ void Fputs(const char *restrict s, FILE *restrict stream);
 
 char* Fgets(char * restrict str, int size, FILE * restrict stream);
 
+void Inet_pton(int af, const char * restrict src, void * restrict dst);
+
+void Connect(int socket, const struct sockaddr *address, socklen_t address_len);
+
 #endif // CWRAPERUNIX_H
