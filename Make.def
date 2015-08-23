@@ -4,23 +4,31 @@ STATIC_LIB_SUFFIX = .a
 
 # Static libcerror library
 ifneq ($(MAKECMDGOALS), clean)
-ifeq ($(LIBCERROR_PATH), )
-$(error LIBCERROR_PATH not defined)
-endif
-endif
+    # If LIBC_PATH is define let's use it for all libraries if
+    # there is no predefined library path is set
+    ifdef LIBC_PATH
+        ifndef LIBCERROR_PATH
+            LIBCERROR_PATH = $(LIBC_PATH)
+        endif
+        ifndef LIBCWRAPERUNIX_PATH
+            LIBCWRAPERUNIX_PATH = $(LIBC_PATH)
+        endif
+        ifndef LIBCNET_PATH
+            LIBCNET_PATH = $(LIBC_PATH)
+        endif
+    else
+        ifndef LIBCERROR_PATH
+            $(error LIBCERROR_PATH not defined)
+        endif
 
-# Static libcwraperunix library
-ifneq ($(MAKECMDGOALS), clean)
-ifeq ($(LIBCWRAPERUNIX_PATH), )
-$(error LIBCWRAPERUNIX_PATH not defined)
-endif
-endif
+        ifndef LIBCWRAPERUNIX_PATH
+            $(error LIBCWRAPERUNIX_PATH not defined)
+        endif
 
-# Static libcnet library
-ifneq ($(MAKECMDGOALS), clean)
-ifeq ($(LIBCNET_PATH), )
-$(error LIBCNET_PATH not defined)
-endif
+        ifndef LIBCNET_PATH
+            $(error LIBCNET_PATH not defined)
+        endif
+    endif
 endif
 
 LIBCERROR_INCLUDE       = $(addprefix $(LIBCERROR_PATH)/, include)
