@@ -27,6 +27,7 @@
 #include <time.h>
 #include <errno.h>
 #include <unistd.h>
+#include <signal.h>
 
 /*
    err_sys
@@ -58,5 +59,8 @@ size_t sock_read(int sockfd, void *buf, size_t n);
 #define CNET_MAXLINE    1024
 
 size_t sock_readline(int sockfd, void *buf, size_t n);
+
+typedef void Sigfunc(int);
+Sigfunc* signal(int signo, Sigfunc* func);
 
 #endif // CNET_H
