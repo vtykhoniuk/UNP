@@ -56,10 +56,24 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
     return fd;
 }
 
-void Write(int fd, const void *buf, size_t count)
+size_t Write(int fd, const void *buf, size_t count)
 {
-    if (write(fd, buf, count) != count)
+    ssize_t nwritten;
+
+    if ((nwritten = write(fd, buf, count)) == -1)
         err_sys("write error");
+
+    return nwritten;
+}
+
+size_t Read(int fildes, void *buf, size_t nbyte)
+{
+    ssize_t nread;
+
+    if ((nread = read(fildes, buf, nbyte)) == -1)
+        err_sys("read error");
+
+    return nread;
 }
 
 void Snprintf(char * restrict str, size_t size, const char * restrict format, ...)
@@ -100,4 +114,20 @@ void Connect(int socket, const struct sockaddr *address, socklen_t address_len)
 {
     if (connect(socket, address, address_len) != 0)
         err_sys("connect error");
+}
+
+int Select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout)
+{
+    int n;
+
+    if ((n = select(nfds, readfds, writefds, errorfds, timeout)) == -1)
+        err_sys("select error");
+
+    return n;
+}
+
+void Shutdown(int socket, int how)
+{
+    if (shutdown(socket, how) == -1)
+        err_sys("shutdown error");
 }
