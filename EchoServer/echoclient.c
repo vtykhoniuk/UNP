@@ -25,16 +25,46 @@ int main()
     exit(EXIT_SUCCESS);
 }
 
-void str_cli(FILE* f, int sockfd)
+void str_cli(FILE* stream, int sockfd)
 {
     char buf[CNET_MAXLINE];
+    struct fd_set rset;
+    int nfds, streamfd;
+    size_t readn;
+    int streameof = 0;
 
-    while (Fgets(buf, sizeof buf, f) != NULL) {
-        sock_write(sockfd, buf, strlen(buf));
+    streamfd = fileno(stream);
 
-        while (sock_readline(sockfd, buf, sizeof buf) == 0)
-            err_quit("str_cli: server terminated prematurely");
+    FD_ZERO(&rset);
+    for (;;) {
+        FD_SET(sockfd, &rset);
+        if (streameof == 0)
+            FD_SET(streamfd, &rset);
 
-        Fputs(buf, stdout);
+        nfds = MAX(streamfd, sockfd) + 1;
+
+        Select(nfds, &rset, NULL, NULL, NULL);
+
+        if (FD_ISSET(sockfd, &rset)) {
+            if ((readn = Read(sockfd, buf, sizeof buf)) == 0) {
+                if (streameof)
+                    return;
+                else
+                    err_quit("str_cli: server terminated prematurely");
+            }
+
+            sock_write(fileno(stdout), buf, readn);
+        }
+
+        if (FD_ISSET(streamfd, &rset)) {
+            if ((readn = Read(streamfd, buf, sizeof buf)) == 0) {
+                streameof = 1;
+                Shutdown(sockfd, SHUT_WR);
+                FD_CLR(streamfd, &rset);
+                continue;
+            }
+
+            Write(sockfd, buf, readn);
+        }
     }
 }
