@@ -31,14 +31,14 @@ void str_cli(FILE* stream, int sockfd)
     struct fd_set rset;
     int nfds, streamfd;
     size_t readn;
-    int streameof = 0;
+    int stream_eof = 0;
 
     streamfd = fileno(stream);
 
     FD_ZERO(&rset);
     for (;;) {
         FD_SET(sockfd, &rset);
-        if (streameof == 0)
+        if (stream_eof == 0)
             FD_SET(streamfd, &rset);
 
         nfds = MAX(streamfd, sockfd) + 1;
@@ -47,7 +47,7 @@ void str_cli(FILE* stream, int sockfd)
 
         if (FD_ISSET(sockfd, &rset)) {
             if ((readn = Read(sockfd, buf, sizeof buf)) == 0) {
-                if (streameof)
+                if (stream_eof)
                     return;
                 else
                     err_quit("str_cli: server terminated prematurely");
@@ -58,7 +58,7 @@ void str_cli(FILE* stream, int sockfd)
 
         if (FD_ISSET(streamfd, &rset)) {
             if ((readn = Read(streamfd, buf, sizeof buf)) == 0) {
-                streameof = 1;
+                stream_eof = 1;
                 Shutdown(sockfd, SHUT_WR);
                 FD_CLR(streamfd, &rset);
                 continue;
