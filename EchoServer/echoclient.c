@@ -60,7 +60,8 @@ void str_cli(FILE* stream, int sockfd)
                     err_quit("str_cli: server terminated prematurely");
             }
 
-            Write(fileno(stdout), buf, readn);
+            buf[readn] = '\0';
+            Fputs(buf, stdout);
         }
 
         if (FD_ISSET(streamfd, &rset)) {
@@ -76,7 +77,7 @@ void str_cli(FILE* stream, int sockfd)
                 continue;
             }
 
-            Write(sockfd, buf, readn);
+            sock_write(sockfd, buf, readn);
         }
     }
 }
