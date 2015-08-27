@@ -11,7 +11,7 @@ int main()
     int listenfd, connfd;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len = sizeof cliaddr;
-    char log[CNET_MAXLINE];
+    char log[CERROR_MAXLINE];
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
@@ -28,7 +28,7 @@ int main()
 
     for (;;) {
         connfd = Accept(listenfd, (SA *) &cliaddr, &cliaddr_len);
-        Snprintf(log, CNET_MAXLINE, "Connection from [%s]", sock_ntop((SA *) &cliaddr, cliaddr_len));
+        Snprintf(log, sizeof log, "Connection from [%s]", sock_ntop((SA *) &cliaddr, cliaddr_len));
         fprintf(stderr, "%s\n", log);
 
         if (Fork() == 0) {
@@ -67,11 +67,11 @@ void sig_chld(int signo)
 {
     pid_t chld_pid;
     int chld_status;
-    char buf[CNET_MAXLINE];
+    char log[CERROR_MAXLINE];
 
     while ((chld_pid = waitpid(-1, &chld_status, WNOHANG)) > 0) {
-        Snprintf(buf, sizeof buf, "Utilizing child [%ld], status [%d]\n", chld_pid, chld_status);
-        Fputs(buf, stderr);
+        Snprintf(log, sizeof log, "Utilizing child [%ld], status [%d]\n", chld_pid, chld_status);
+        Fputs(log, stderr);
     }
 
     /* Not really necessary, though this is a way to show that
