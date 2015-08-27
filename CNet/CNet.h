@@ -14,15 +14,7 @@
 */
 #include <netinet/in.h>
 
-/*
-   typedef socklen_t
-   inet_ntop
-   inet_pton
-*/
-#include <arpa/inet.h>
-
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <errno.h>
