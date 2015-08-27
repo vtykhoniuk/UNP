@@ -48,8 +48,15 @@ void str_cli(FILE* stream, int sockfd)
         if (FD_ISSET(sockfd, &rset)) {
             if ((readn = Read(sockfd, buf, sizeof buf)) == 0) {
                 if (stream_eof)
+                    /* This is normal termination condition: we have nothing
+                       to send, and server shut down his side of connection
+                    */
                     return;
                 else
+                    /* This is exception: the streamfd is not closed yet which
+                       means that we still have data to be sent to the server
+                       but server closes the connection probably because of an error
+                    */
                     err_quit("str_cli: server terminated prematurely");
             }
 
@@ -58,6 +65,11 @@ void str_cli(FILE* stream, int sockfd)
 
         if (FD_ISSET(streamfd, &rset)) {
             if ((readn = Read(streamfd, buf, sizeof buf)) == 0) {
+                /* There is nothing else to be sent, whatever we had - we alredy
+                   pass to the kernel therefore just half close the connection to
+                   the server with shutdown and remove streamfd from the 'select'
+                   queue
+                */
                 stream_eof = 1;
                 Shutdown(sockfd, SHUT_WR);
                 FD_CLR(streamfd, &rset);
