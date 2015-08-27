@@ -11,7 +11,7 @@ int main()
     int listenfd, connfd;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len = sizeof cliaddr;
-    char log[CNET_MAXLINE+1];
+    char log[CNET_MAXLINE];
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
