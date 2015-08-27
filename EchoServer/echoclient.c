@@ -27,7 +27,11 @@ int main()
 
 void str_cli(FILE* stream, int sockfd)
 {
-    char buf[CNET_MAXLINE];
+    /* CNET_MAXLINE+1: we will output  to the stream whatever we
+       read from the socket, using fputs call. We need to reserve
+       1 character for '\0'
+    */
+    char buf[CNET_MAXLINE+1];
     struct fd_set rset;
     int nfds, streamfd;
     size_t readn;
@@ -46,10 +50,7 @@ void str_cli(FILE* stream, int sockfd)
         Select(nfds, &rset, NULL, NULL, NULL);
 
         if (FD_ISSET(sockfd, &rset)) {
-            /* sizeof(buf)-1: Since we will output whatever we read to the stream
-               using fputs call we need to reserve 1 character for '\0'
-            */
-            if ((readn = Read(sockfd, buf, sizeof(buf) - 1)) == 0) {
+            if ((readn = Read(sockfd, buf, sizeof(buf))) == 0) {
                 if (stream_eof)
                     /* This is normal termination condition: we have nothing
                        to send, and server shut down his side of connection
