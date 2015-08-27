@@ -50,8 +50,8 @@ void str_echo(int sockfd)
     int readn;
     char buf[CNET_MAXLINE];
 
-    /* Let's use read hear (not Read wraper) because I want to process
-       EINTR if it happens.
+    /* Let's use 'read' here (not Read wraper) because I want to process
+       EINTR error if it happens.
     */
     again:
     while ((readn = read(sockfd, buf, sizeof buf)) > 0)
