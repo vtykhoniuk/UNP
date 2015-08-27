@@ -2,7 +2,6 @@
 
 #define PORT            30000
 #define LISTEN_QUEUE    10
-#define LOGLINE_MAX     1024
 
 void str_echo(int);
 void sig_chld(int);
@@ -12,7 +11,7 @@ int main()
     int listenfd, connfd;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len = sizeof cliaddr;
-    char log[LOGLINE_MAX+1];
+    char log[CNET_MAXLINE+1];
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
@@ -29,7 +28,7 @@ int main()
 
     for (;;) {
         connfd = Accept(listenfd, (SA *) &cliaddr, &cliaddr_len);
-        Snprintf(log, LOGLINE_MAX, "Connection from [%s]", sock_ntop((SA *) &cliaddr, cliaddr_len));
+        Snprintf(log, CNET_MAXLINE, "Connection from [%s]", sock_ntop((SA *) &cliaddr, cliaddr_len));
         fprintf(stderr, "%s\n", log);
 
         if (Fork() == 0) {
