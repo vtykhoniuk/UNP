@@ -46,7 +46,10 @@ void str_cli(FILE* stream, int sockfd)
         Select(nfds, &rset, NULL, NULL, NULL);
 
         if (FD_ISSET(sockfd, &rset)) {
-            if ((readn = Read(sockfd, buf, sizeof buf)) == 0) {
+            /* sizeof(buf)-1: Since we will output whatever we read to the stream
+               using fputs call we need to reserve 1 character for '\0'
+            */
+            if ((readn = Read(sockfd, buf, sizeof(buf) - 1)) == 0) {
                 if (stream_eof)
                     /* This is normal termination condition: we have nothing
                        to send, and server shut down his side of connection
