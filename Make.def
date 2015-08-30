@@ -47,7 +47,7 @@ _LIBCNET_STATIC         = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCNET))
 LIBCNET_STATIC          = $(addprefix $(LIBCNET_PATH)/lib/, $(_LIBCNET_STATIC))
 
 CC                      = gcc
-CFLAGS                  = -std=c99 -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+CFLAGS                  = -std=gnu99 -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
 
 .PHONY : all clean
 .DEFAULT_GOAL = all
