@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 /*
    err_sys
