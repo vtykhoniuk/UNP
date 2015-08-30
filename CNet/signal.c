@@ -12,8 +12,11 @@ Sigfunc* signal(int signo, Sigfunc* func)
        Since SIGALRM is used to set timers for I/O syscalls we do want
        these syscalls to be interrupted when SIGALRM arrived
     */
-    if (signo != SIGALRM)
+    if (signo != SIGALRM) {
+#ifdef SA_RESTART
         act.sa_flags |= SA_RESTART;
+#endif
+    }
 
     if (sigaction(signo, &act, &oact) < 0)
         return SIG_ERR;
