@@ -32,7 +32,7 @@ void str_cli(FILE* stream, int sockfd)
        1 character for '\0'
     */
     char buf[CNET_MAXLINE+1];
-    struct fd_set rset;
+    fd_set rset;
     int nfds, streamfd;
     size_t readn;
     int stream_eof = 0;
