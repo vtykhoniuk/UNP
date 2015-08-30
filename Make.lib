@@ -8,7 +8,7 @@
 
 AR              = ar
 RANLIB          = ranlib
-INSTALL         = install
+INSTALL         = cp
 
 # Identify the path to the Makefile
 # We need this path to correctly include Make.def
