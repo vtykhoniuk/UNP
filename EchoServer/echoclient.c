@@ -3,12 +3,31 @@
 #define PORT            30000
 #define ADDR            "127.0.0.1"
 
+static void usage();
 void str_cli(FILE*, int);
 
-int main()
+int main(int argc, char **argv)
 {
     int sockfd;
     struct sockaddr_in servaddr;
+    char c;
+
+    opterr = 0;
+    while ((c = getopt(argc, argv, "h")) != EOF) {
+        switch (c) {
+            case 'h':
+                usage();
+                exit(EXIT_SUCCESS);
+                break;
+
+            case '?':
+                usage();
+                err_quit("unrecognized option");
+        }
+    }
+
+    if (argc != 3)
+        err_quit("missing <host> and/or <port>");
 
     bzero(&servaddr, sizeof servaddr);
     servaddr.sin_family = AF_INET;
@@ -84,4 +103,12 @@ void str_cli(FILE* stream, int sockfd)
             sock_write(sockfd, buf, readn);
         }
     }
+}
+
+static void usage()
+{
+    err_msg(
+"Usage: echoclient [ options ] <host> <port>\n"
+"options: -h    print this message"
+);
 }
