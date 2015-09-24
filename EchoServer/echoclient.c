@@ -1,8 +1,5 @@
 #include "CNet.h"
 
-#define PORT            30000
-#define ADDR            "127.0.0.1"
-
 static void usage();
 void str_cli(FILE*, int);
 
@@ -31,8 +28,8 @@ int main(int argc, char **argv)
 
     bzero(&servaddr, sizeof servaddr);
     servaddr.sin_family = AF_INET;
-    Inet_pton(AF_INET, ADDR, (SA *) &servaddr.sin_addr.s_addr);
-    servaddr.sin_port = htons(PORT);
+    Inet_pton(AF_INET, argv[1], (SA *) &servaddr.sin_addr.s_addr);
+    servaddr.sin_port = htons(Strtol10(argv[2]));
 
     sockfd = Socket(PF_INET, SOCK_STREAM, 0);
     Connect(sockfd, (SA *) &servaddr, sizeof servaddr);
