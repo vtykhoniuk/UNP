@@ -1,17 +1,35 @@
 #include "CNet.h"
 
-#define PORT            30000
 #define LISTEN_QUEUE    10
 
+static void usage();
 void str_echo(int);
 void sig_chld(int);
 
-int main()
+int main(int argc, char **argv)
 {
     int listenfd, connfd;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len = sizeof cliaddr;
     char log[CERROR_MAXLINE];
+    char c;
+
+    opterr = 0;
+    while ((c = getopt(argc, argv, "h")) != EOF) {
+        switch (c) {
+            case 'h':
+                usage();
+                exit(EXIT_SUCCESS);
+                break;
+
+            case '?':
+                usage();
+                err_quit("unrecognized option");
+        }
+    }
+
+    if (argc != 2)
+        err_quit("missing <port>");
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
@@ -21,7 +39,7 @@ int main()
     listenfd = Socket(PF_INET, SOCK_STREAM, 0);
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servaddr.sin_port = htons(PORT);
+    servaddr.sin_port = htons(Strtol10(argv[1]));
 
     Bind(listenfd, (SA *) &servaddr, sizeof servaddr);
     Listen(listenfd, LISTEN_QUEUE);
@@ -80,4 +98,12 @@ void sig_chld(int signo)
        handles such cases gracefuly (UNP p.134)
     */
     return;
+}
+
+static void usage()
+{
+    err_msg(
+"Usage: echoserver [ options ] <port>\n"
+"options: -h    print this message"
+);
 }
