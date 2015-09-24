@@ -1,6 +1,6 @@
 #include "CNet.h"
 
-#define LISTEN_QUEUE    10
+#define BACKLOG_Q_DEFAULT    10
 
 static void usage();
 void str_echo(int);
@@ -13,13 +13,19 @@ int main(int argc, char **argv)
     socklen_t cliaddr_len = sizeof cliaddr;
     char log[CERROR_MAXLINE];
     char c;
+    int backlogq = BACKLOG_Q_DEFAULT;
+    short port;
 
     opterr = 0;
-    while ((c = getopt(argc, argv, "h")) != EOF) {
+    while ((c = getopt(argc, argv, "hq:")) != EOF) {
         switch (c) {
             case 'h':
                 usage();
                 exit(EXIT_SUCCESS);
+                break;
+
+            case 'q':
+                backlogq = Strtol10(optarg);
                 break;
 
             case '?':
@@ -28,8 +34,10 @@ int main(int argc, char **argv)
         }
     }
 
-    if (argc != 2)
+    if (optind != argc - 1)
         err_quit("missing <port>");
+
+    port = Strtol10(argv[optind]);
 
     bzero(&servaddr, sizeof servaddr);
     bzero(&cliaddr, cliaddr_len);
@@ -39,10 +47,10 @@ int main(int argc, char **argv)
     listenfd = Socket(PF_INET, SOCK_STREAM, 0);
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servaddr.sin_port = htons(Strtol10(argv[1]));
+    servaddr.sin_port = htons(port);
 
     Bind(listenfd, (SA *) &servaddr, sizeof servaddr);
-    Listen(listenfd, LISTEN_QUEUE);
+    Listen(listenfd, backlogq);
 
     for (;;) {
         connfd = Accept(listenfd, (SA *) &cliaddr, &cliaddr_len);
@@ -104,6 +112,7 @@ static void usage()
 {
     err_msg(
 "Usage: echoserver [ options ] <port>\n"
-"options: -h    print this message"
+"options: -h          print this message\n"
+"options: -q <SIZE>   size of pending connections queue"
 );
 }
