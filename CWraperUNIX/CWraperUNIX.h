@@ -49,4 +49,8 @@ void Connect(int socket, const struct sockaddr *address, socklen_t address_len);
 
 int Select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);
 
+long Strtol(const char *restrict str, char **restrict endptr, int base);
+
+long Strtol10(const char *restrict str);
+
 #endif // CWRAPERUNIX_H
