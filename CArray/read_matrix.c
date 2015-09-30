@@ -1,9 +1,7 @@
 #include "CArray.h"
-#include "CError.h"
-#include "CWraperUNIX.h"
+#include "CHelper.h"
 
 #include <assert.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define WHITE       " \t\n"
@@ -22,7 +20,7 @@ int **read_matrix(size_t rows, size_t cols, FILE * stream, char *buf, size_t buf
     for (i = 0; i < rows; ++i) {
         a[i] = (int*) malloc(cols*sizeof(int));
 
-        Getline(buf, buf_size, stream);
+        Fgets(buf, buf_size, stream);
 
         if ((token = strtok(buf, WHITE)) == NULL)
             err_quit("invalid input in line [%d]", i);
