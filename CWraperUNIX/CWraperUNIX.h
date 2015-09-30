@@ -53,4 +53,6 @@ long Strtol(const char *restrict str, int base);
 
 long Strtol10(const char *restrict str);
 
+char* Getline(char * restrict str, int size, FILE * restrict stream);
+
 #endif // CWRAPERUNIX_H
