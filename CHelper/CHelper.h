@@ -12,6 +12,7 @@
    typedef timeval
 */
 #include <sys/time.h>
+#include <time.h>
 
 /*
    typedef size_t
