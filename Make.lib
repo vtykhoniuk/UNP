@@ -7,7 +7,6 @@
 # include ../Make.lib
 
 AR              = ar
-RANLIB          = ranlib
 INSTALL         = cp
 
 # Identify the path to the Makefile
