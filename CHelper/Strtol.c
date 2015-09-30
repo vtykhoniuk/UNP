@@ -1,6 +1,5 @@
 #include "CHelper.h"
 
-#include <errno.h>
 #include <limits.h>
 
 long Strtol(const char *restrict str, int base)
