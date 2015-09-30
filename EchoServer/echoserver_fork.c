@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     int listenfd, connfd;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len = sizeof cliaddr;
-    char log[CERROR_MAXLINE];
+    char log[CHELPER_MAXLINE];
     char c;
     int backlogq = BACKLOG_Q_DEFAULT;
     short port;
@@ -93,7 +93,7 @@ void sig_chld(int signo)
 {
     pid_t chld_pid;
     int chld_status;
-    char log[CERROR_MAXLINE];
+    char log[CHELPER_MAXLINE];
 
     while ((chld_pid = waitpid(-1, &chld_status, WNOHANG)) > 0) {
         Snprintf(log, sizeof log, "Utilizing child [%ld], status [%d]\n", chld_pid, chld_status);
