@@ -2,7 +2,7 @@
 # Target makefile should look like:
 # 
 # LIB_NAME = test
-# LIB_DEPS = test.h
+# LIB_INC = test.h
 # LIB_PIECES = test1 test2 test3
 # include ../Make.lib
 
@@ -31,5 +31,5 @@ ifndef INSTALL_PREFIX
 	$(error INSTALL_PREFIX is not defined)
 else
 	$(INSTALL) $(STATIC_LIB_NAME) $(INSTALL_PREFIX)/lib/
-	$(INSTALL) $(LIB_DEPS) $(INSTALL_PREFIX)/include/
+	$(INSTALL) $(LIB_INC) $(INSTALL_PREFIX)/include/
 endif

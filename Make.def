@@ -7,11 +7,8 @@ ifneq ($(MAKECMDGOALS), clean)
     # If LIBC_PATH is define let's use it for all libraries if
     # there is no predefined library path is set
     ifdef LIBC_PATH
-        ifndef LIBCERROR_PATH
-            LIBCERROR_PATH = $(LIBC_PATH)
-        endif
-        ifndef LIBCWRAPERUNIX_PATH
-            LIBCWRAPERUNIX_PATH = $(LIBC_PATH)
+        ifndef LIBCHELPER_PATH
+            LIBCHELPER_PATH = $(LIBC_PATH)
         endif
         ifndef LIBCNET_PATH
             LIBCNET_PATH = $(LIBC_PATH)
@@ -20,42 +17,32 @@ ifneq ($(MAKECMDGOALS), clean)
             LIBCARRAY_PATH = $(LIBC_PATH)
         endif
     else
-        ifndef LIBCERROR_PATH
-            $(error LIBCERROR_PATH not defined)
+        ifndef LIBCHELPER_PATH
+            $(error LIBCHELPER_PATH not defined)
         endif
-
-        ifndef LIBCWRAPERUNIX_PATH
-            $(error LIBCWRAPERUNIX_PATH not defined)
-        endif
-
         ifndef LIBCNET_PATH
             $(error LIBCNET_PATH not defined)
+        endif
+        ifndef LIBCARRAY_PATH
+            $(error LIBCARRAY_PATH not defined)
         endif
     endif
 endif
 
-LIBCERROR_INCLUDE       = $(addprefix $(LIBCERROR_PATH)/, include)
-_LIBCERROR              = libcerror
-_LIBCERROR_STATIC       = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCERROR))
-LIBCERROR_STATIC        = $(addprefix $(LIBCERROR_PATH)/lib/, $(_LIBCERROR_STATIC))
+LIBCHELPER_INCLUDE  = $(addprefix $(LIBCHELPER_PATH)/, include)
+LIBCHELPER_LIB      = $(addprefix $(LIBCHELPER_PATH)/, lib)
+LIBCHELPER          = chelper
 
-LIBCWRAPERUNIX_INCLUDE  = $(addprefix $(LIBCWRAPERUNIX_PATH)/, include)
-_LIBCWRAPERUNIX         = libcwraperunix
-_LIBCWRAPERUNIX_STATIC  = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCWRAPERUNIX))
-LIBCWRAPERUNIX_STATIC   = $(addprefix $(LIBCWRAPERUNIX_PATH)/lib/, $(_LIBCWRAPERUNIX_STATIC))
+LIBCNET_INCLUDE     = $(addprefix $(LIBCNET_PATH)/, include)
+LIBCNET_LIB         = $(addprefix $(LIBCNET_PATH)/, lib)
+LIBCNET             = cnet
 
-LIBCNET_INCLUDE         = $(addprefix $(LIBCNET_PATH)/, include)
-_LIBCNET                = libcnet
-_LIBCNET_STATIC         = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCNET))
-LIBCNET_STATIC          = $(addprefix $(LIBCNET_PATH)/lib/, $(_LIBCNET_STATIC))
+LIBCARRAY_INCLUDE   = $(addprefix $(LIBCARRAY_PATH)/, include)
+LIBCARRAY_LIB       = $(addprefix $(LIBCARRAY_PATH)/, lib)
+LIBCARRAY           = carray
 
-LIBCARRAY_INCLUDE       = $(addprefix $(LIBCARRAY_PATH)/, include)
-_LIBCARRAY              = libcarray
-_LIBCARRAY_STATIC       = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCARRAY))
-LIBCARRAY_STATIC        = $(addprefix $(LIBCARRAY_PATH)/lib/, $(_LIBCARRAY_STATIC))
-
-CC                      = gcc
-CFLAGS                  = -std=gnu99 -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
+CC                  = gcc
+CFLAGS              = -std=gnu99 -I. -I$(LIBCHELPER_INCLUDE) -O1 -Wall -Werror
 
 .PHONY : all clean
 .DEFAULT_GOAL = all

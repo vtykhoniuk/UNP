@@ -8,7 +8,7 @@
 # include ../Make.bin
 #
 # prog1: $(PROG1_OBJS)
-#   $(CC) $(CFLAGS) -o $@ $? $(LIBCERROR_STATIC) $(LIBCWRAPERUNIX_STATIC)
+#   $(CC) $(CFLAGS) -o $@ $? $(LIBCERROR_STATIC) $(LIBCHELPER_STATIC)
 
 # Identify the path to the Makefile
 # We need this path to correctly include Make.def
