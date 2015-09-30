@@ -25,10 +25,26 @@
 */
 #include <arpa/inet.h>
 
-/*
-   Error processing is used in almost all functions
-*/
-#include "CError.h"
+#include <errno.h>
+
+
+#define CHELPER_MAXLINE	1024
+
+/* Fatal error related to system call
+   Print and terminate */
+void err_sys(const char* fmt, ...);
+
+/* Non fatal error related to system call
+   Print error message and return */
+void err_ret(const char* fmt, ...);
+
+/* Fatal error unrelated to system call
+   Print and terminate */
+void err_quit(const char* fmt, ...);
+
+/* Non fatal error unrelated to system call
+   Print error message and return */
+void err_msg(const char* fmt, ...);
 
 void Close(int);
 void Shutdown(int socket, int how);

@@ -1,4 +1,4 @@
 LIB_NAME    = libchelper
-LIB_DEPS    = CHelper.h
-LIB_PIECES  = Strtol wrapers
+LIB_INC     = CHelper.h
+LIB_PIECES  = CError Strtol wrapers
 include ../Make.lib
