@@ -14,23 +14,12 @@
 */
 #include <netinet/in.h>
 
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <errno.h>
 #include <unistd.h>
 #include <signal.h>
 #include <sys/wait.h>
 
-/*
-   err_sys
-   err_ret
-   err_quit
-   err_msg
-*/
-#include "CError.h"
-
-#include "CWraperUNIX.h"
+#include "CHelper.h"
 
 typedef struct sockaddr SA;
 
