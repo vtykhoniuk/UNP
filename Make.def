@@ -16,6 +16,9 @@ ifneq ($(MAKECMDGOALS), clean)
         ifndef LIBCNET_PATH
             LIBCNET_PATH = $(LIBC_PATH)
         endif
+        ifndef LIBCARRAY_PATH
+            LIBCARRAY_PATH = $(LIBC_PATH)
+        endif
     else
         ifndef LIBCERROR_PATH
             $(error LIBCERROR_PATH not defined)
@@ -45,6 +48,11 @@ LIBCNET_INCLUDE         = $(addprefix $(LIBCNET_PATH)/, include)
 _LIBCNET                = libcnet
 _LIBCNET_STATIC         = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCNET))
 LIBCNET_STATIC          = $(addprefix $(LIBCNET_PATH)/lib/, $(_LIBCNET_STATIC))
+
+LIBCARRAY_INCLUDE       = $(addprefix $(LIBCARRAY_PATH)/, include)
+_LIBCARRAY              = libcarray
+_LIBCARRAY_STATIC       = $(addsuffix $(STATIC_LIB_SUFFIX), $(_LIBCARRAY))
+LIBCARRAY_STATIC        = $(addprefix $(LIBCARRAY_PATH)/lib/, $(_LIBCARRAY_STATIC))
 
 CC                      = gcc
 CFLAGS                  = -std=gnu99 -I. -I$(LIBCERROR_INCLUDE) -O1 -Wall -Werror
