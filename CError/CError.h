@@ -5,6 +5,8 @@
 #define CERROR_MAXLINE  1024
 #endif // CERROR_MAXLINE
 
+#include <errno.h>
+
 // SYSTEM CALL ERRORS
 
 /* Fatal error related to system call
