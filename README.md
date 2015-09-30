@@ -1,11 +1,10 @@
 # UNP
-UNIX network programming library and samples
+UNIX (network) programming library and samples
 
 Libraries:
 ------------
 CArray       - various functons to help working with arrays
 CError       - simple C library to process errors in C programs
-CWraperUNIX  - UNIX syscalls and C functions with error processing, using CError
 CNet         - network programming C library
 CHelper	     - C Helper library. Contains various functions that make things easy for UNIX C programming
 
