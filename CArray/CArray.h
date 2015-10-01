@@ -13,6 +13,4 @@ void print_matrix(int **a, size_t rows, size_t cols);
 int **read_matrix(size_t rows, size_t cols, FILE * stream, char *buf, size_t buf_size);
 void free_matrix(int **a, size_t rows);
 
-void rotate_matrix(int **a, size_t n);
-
 #endif
