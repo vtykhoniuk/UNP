@@ -33,8 +33,7 @@ int main(int argc, char** argv)
     a = read_matrix(n, n, stream, buf, CHELPER_MAXLINE);
 
     if (stream != stdin)
-        if (fclose(stream) == EOF)
-            err_sys("Failed to close file [%s]", argv[1]);
+        Fclose(stream);
 
     puts("Input matrix:");
     print_matrix(a, n, n);
