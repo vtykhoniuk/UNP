@@ -58,6 +58,7 @@ size_t Read(int fildes, void *buf, size_t nbyte);
 void Snprintf(char * restrict str, size_t size, const char * restrict format, ...);
 void Fputs(const char *restrict s, FILE *restrict stream);
 char* Fgets(char * restrict str, int size, FILE * restrict stream);
+void Fclose(FILE*);
 void Inet_pton(int af, const char * restrict src, void * restrict dst);
 void Connect(int socket, const struct sockaddr *address, socklen_t address_len);
 int Select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);

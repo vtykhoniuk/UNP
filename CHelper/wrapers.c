@@ -111,6 +111,12 @@ char* Fgets(char * restrict str, int size, FILE * restrict stream)
     return rptr;
 }
 
+void Fclose(FILE *stream)
+{
+    if (fclose(stream) == EOF)
+        err_sys("fclose error");
+}
+
 void Inet_pton(int af, const char * restrict src, void * restrict dst)
 {
     if (inet_pton(af, src, dst) != 1)
