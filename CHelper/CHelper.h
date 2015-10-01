@@ -65,4 +65,12 @@ int Select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set
 long Strtol(const char *restrict str, int base);
 long Strtol10(const char *restrict str);
 
+/*
+   The function takes null termintated string 'str' and splits it
+   in pieces using any of delimiter characters from 'delims'
+   The results are put into dst vector. If size of dst vector is
+   greater than amount of pieces in str, 'n' is updated
+*/
+size_t strsplit(char *str, const char *delims, char **dst, size_t n);
+
 #endif // CHELPER_H
