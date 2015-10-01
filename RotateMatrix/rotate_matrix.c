@@ -5,6 +5,8 @@
 #include "CHelper.h"
 
 static void usage();
+void rotate_matrix(int **a, size_t n);
+void rotate_matrix_layer(int **a, size_t n, unsigned int i);
 
 int main(int argc, char** argv)
 {
@@ -50,4 +52,30 @@ int main(int argc, char** argv)
 static void usage()
 {
     fprintf(stderr, "USAGE: rotate_matrix [-]|<FILE>\n");
+}
+
+void rotate_matrix(int **a, size_t n)
+{
+    unsigned int i;
+
+    for (i = 0; i < n/2; ++i)
+        rotate_matrix_layer(a, n, i);
+}
+
+void rotate_matrix_layer(int **a, size_t n, unsigned int k)
+{
+    unsigned int lcol = k;
+    unsigned int rcol = n - k - 1;
+    unsigned int trow = k;
+    unsigned int brow = n - k - 1;
+    unsigned int i;
+    int tmp;
+
+    for (i = 0; i < rcol - lcol; ++i) {
+        tmp = a[trow][lcol+i];
+        a[trow][lcol+i] = a[brow-i][lcol];
+        a[brow-i][lcol] = a[brow][rcol-i];
+        a[brow][rcol-i] = a[trow+i][rcol];
+        a[trow+i][rcol] = tmp;
+    }
 }
