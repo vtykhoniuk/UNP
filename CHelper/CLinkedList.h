@@ -22,5 +22,6 @@ void CLL_for_each(CLinkedList *list, void (*action)(CLLNode*));
 void destroy_int_value(void *val);
 void destroy_char_value(void *val);
 void print_int_node(CLLNode *node);
+void print_char_node(CLLNode *node);
 
 #endif // CLINKEDLIST_H

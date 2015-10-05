@@ -26,7 +26,9 @@
 #include <arpa/inet.h>
 
 #include <errno.h>
+#include <assert.h>
 
+#include "CLinkedList.h"
 
 #define CHELPER_MAXLINE	1024
 
@@ -68,9 +70,9 @@ long Strtol10(const char *restrict str);
 /*
    The function takes null termintated string 'str' and splits it
    in pieces using any of delimiter characters from 'delims'
-   The results are put into dst vector. If size of dst vector is
-   greater than amount of pieces in str, 'n' is updated
+   The results are put into linked list 'result' that should be created
+   before running function and removed after
 */
-size_t strsplit(char *str, const char *delims, char **dst, size_t n);
+CLinkedList* strsplit(const char *str, const char* delim);
 
 #endif // CHELPER_H

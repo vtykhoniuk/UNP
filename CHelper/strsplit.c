@@ -1,27 +1,38 @@
 #include "CHelper.h"
 
 #include <string.h>
-#include <assert.h>
 
-size_t strsplit(char *str, const char *delims, char **dst, size_t n)
+CLinkedList* strsplit(const char *str, const char *delim)
 {
-    char *token;
-    size_t i = 0;
-
     assert(str != NULL);
     assert(strlen(str) > 0);
-    assert(n > 0);
 
-    /* If we got NULL in the first strtok call that probably
-       means that 'str' contains nothing but 'delims' characters
-       */
-    if ((token = strtok(str, delims)) == NULL)
-        return 0;
+    CLinkedList *result = CLL_create(sizeof(char*));
+    const char *token_begin = str;
+    const char *token_end = str;
+    char *tmp;
+    size_t n;
 
-    dst[i++] = token;
+    // While not end of the string
+    while (*token_begin != '\0') {
+        // Looking for a non-delimiter character
+        for (token_begin = token_end; *token_begin != '\0' && strchr(delim, *token_begin) != NULL; ++token_begin);
 
-    while (i < n && (token = strtok(NULL, delims)) != NULL)
-        dst[i++] = token;
+        // If we reach end of string
+        if (*token_begin == '\0')
+            break;
 
-    return i;
+        // Looking for delimiter
+        for (token_end = token_begin; *token_end != '\0' && strchr(delim, *token_end) == NULL; ++token_end);
+
+        n = token_end-token_begin+1;
+
+        tmp = malloc(n);
+        memcpy(tmp, token_begin, n-1);
+        tmp[n] = '\0';
+
+        CLL_add_node(result, tmp);
+    }
+
+    return result;
 }

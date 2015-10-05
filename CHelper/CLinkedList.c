@@ -93,3 +93,8 @@ void print_int_node(CLLNode *node)
 {
     printf("%3d", *((int*) node->value));
 }
+
+void print_char_node(CLLNode *node)
+{
+    printf("%s ", (char*) node->value);
+}
