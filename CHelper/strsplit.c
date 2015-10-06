@@ -12,6 +12,7 @@ CLinkedList* strsplit(const char *str, const char *delim)
     const char *token_end = str;
     char *tmp;
     size_t n;
+    CLLNode *node;
 
     // While not end of the string
     while (*token_begin != '\0') {
@@ -25,13 +26,14 @@ CLinkedList* strsplit(const char *str, const char *delim)
         // Looking for delimiter
         for (token_end = token_begin; *token_end != '\0' && strchr(delim, *token_end) == NULL; ++token_end);
 
+        // Dedicate new memory and copy token
         n = token_end-token_begin+1;
-
         tmp = malloc(n);
         memcpy(tmp, token_begin, n-1);
-        tmp[n] = '\0';
+        tmp[n-1] = '\0';
 
-        CLL_add_node(result, tmp);
+        // Create new list node
+        node = CLL_add_node(result, &tmp);
     }
 
     return result;

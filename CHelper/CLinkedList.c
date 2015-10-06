@@ -86,7 +86,10 @@ void destroy_int_value(void *val)
 
 void destroy_char_value(void *val)
 {
-    free((char*) val);
+    char **sp = (char**) val;
+
+    free(*sp);
+    free(sp);
 }
 
 void print_int_node(CLLNode *node)
@@ -96,5 +99,6 @@ void print_int_node(CLLNode *node)
 
 void print_char_node(CLLNode *node)
 {
-    printf("%s ", (char*) node->value);
+    char **sp = (char**) node->value;
+    printf("%s ", *sp);
 }
