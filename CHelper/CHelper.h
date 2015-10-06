@@ -73,6 +73,6 @@ long Strtol10(const char *restrict str);
    The results are put into linked list 'result' that should be created
    before running function and removed after
 */
-CLinkedList* strsplit(const char *str, const char* delim);
+CLinkedList* strsplit(const char *str, const char *delim);
 
 #endif // CHELPER_H
