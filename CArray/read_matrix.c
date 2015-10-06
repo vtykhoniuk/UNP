@@ -32,7 +32,7 @@ int **read_matrix(size_t rows, size_t cols, FILE * stream, char *buf, size_t buf
         node = parts->head;
 
         for (j = 0; j < cols; ++j) {
-            a[i][j] = Strtol10((char*) node->value);
+            a[i][j] = Strtol10(*((char**) node->value));
             node = node->next;
         }
 
