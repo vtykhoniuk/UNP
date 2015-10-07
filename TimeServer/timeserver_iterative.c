@@ -1,4 +1,4 @@
-#include "CNet.h"
+#include "CHelper.h"
 
 #define PORT        1333
 #define LINE_MAX    256

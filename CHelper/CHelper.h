@@ -29,6 +29,7 @@
 #include <errno.h>
 #include <assert.h>
 #include <string.h>
+#include <sys/wait.h>
 
 /*
    read

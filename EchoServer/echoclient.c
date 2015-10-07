@@ -1,4 +1,4 @@
-#include "CNet.h"
+#include "CHelper.h"
 
 static void usage();
 void str_cli(FILE*, int);
