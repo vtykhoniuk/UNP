@@ -25,6 +25,7 @@
 */
 #include <arpa/inet.h>
 
+#include <signal.h>
 #include <errno.h>
 #include <assert.h>
 
@@ -69,6 +70,10 @@ void Connect(int socket, const struct sockaddr *address, socklen_t address_len);
 int Select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);
 long Strtol(const char *restrict str, int base);
 long Strtol10(const char *restrict str);
+
+typedef void Sigfunc(int);
+Sigfunc* signal(int signo, Sigfunc* func);
+void Signal(int signo, Sigfunc* func);
 
 /*
    The function takes null termintated string 'str' and splits it

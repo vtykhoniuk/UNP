@@ -144,3 +144,9 @@ void Shutdown(int socket, int how)
     if (shutdown(socket, how) == -1)
         err_sys("shutdown error");
 }
+
+void Signal(int signo, Sigfunc* func)
+{
+    if (signal(signo, func) == SIG_ERR)
+        err_sys("signal error");
+}

@@ -1,4 +1,4 @@
-#include "CNet.h"
+#include "CHelper.h"
 
 Sigfunc* signal(int signo, Sigfunc* func)
 {
@@ -22,10 +22,4 @@ Sigfunc* signal(int signo, Sigfunc* func)
         return SIG_ERR;
 
     return oact.sa_handler;
-}
-
-void Signal(int signo, Sigfunc* func)
-{
-    if (signal(signo, func) == SIG_ERR)
-        err_sys("signal error");
 }
