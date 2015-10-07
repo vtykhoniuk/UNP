@@ -32,6 +32,9 @@
 
 #define CHELPER_MAXLINE	1024
 
+#define MIN(a,b)    ((a) < (b) ? (a) : (b))
+#define MAX(a,b)    ((a) > (b) ? (a) : (b))
+
 /* Fatal error related to system call
    Print and terminate */
 void err_sys(const char* fmt, ...);

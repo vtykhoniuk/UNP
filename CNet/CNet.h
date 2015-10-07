@@ -46,7 +46,4 @@ typedef void Sigfunc(int);
 Sigfunc* signal(int signo, Sigfunc* func);
 void Signal(int signo, Sigfunc* func);
 
-#define MIN(a,b)        ((a) < (b) ? (a) : (b))
-#define MAX(a,b)        ((a) > (b) ? (a) : (b))
-
 #endif // CNET_H
