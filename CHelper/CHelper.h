@@ -28,6 +28,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <assert.h>
+#include <string.h>
 
 #include "CLinkedList.h"
 
@@ -74,6 +75,15 @@ long Strtol10(const char *restrict str);
 typedef void Sigfunc(int);
 Sigfunc* signal(int signo, Sigfunc* func);
 void Signal(int signo, Sigfunc* func);
+
+typedef struct sockaddr SA;
+
+/*
+   Returns socket address:
+    for IPv4: xxx.xxx.xxx.xxx:port
+    for IPv6: NOT IMPLEMENTED
+*/
+char *sock_ntop(const SA *sa, socklen_t salen);
 
 /*
    The function takes null termintated string 'str' and splits it
