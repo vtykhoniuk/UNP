@@ -30,6 +30,12 @@
 #include <assert.h>
 #include <string.h>
 
+/*
+   read
+   write
+*/
+#include <unistd.h>
+
 #include "CLinkedList.h"
 
 #define CHELPER_MAXLINE	1024
@@ -84,6 +90,16 @@ typedef struct sockaddr SA;
     for IPv6: NOT IMPLEMENTED
 */
 char *sock_ntop(const SA *sa, socklen_t salen);
+
+/*
+   Writes 'n' bytes from 'buf' to 'sockfd'
+   Handles cases when 'write' syscall returned before 'n' bytes are written
+   (because of sys interrupt EINTR or net buffer overflow)
+*/
+void sock_write(int sockfd, const void *buf, size_t n);
+size_t sock_read(int sockfd, void *buf, size_t n);
+
+size_t sock_readline(int sockfd, void *buf, size_t n);
 
 /*
    The function takes null termintated string 'str' and splits it
