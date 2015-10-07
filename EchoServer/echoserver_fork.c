@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 void str_echo(int sockfd)
 {
     int readn;
-    char buf[CNET_MAXLINE];
+    char buf[CHELPER_MAXLINE];
 
     /* Let's use 'read' here (not Read wraper) because I want to process
        EINTR error if it happens.

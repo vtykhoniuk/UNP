@@ -43,11 +43,11 @@ int main(int argc, char **argv)
 
 void str_cli(FILE* stream, int sockfd)
 {
-    /* CNET_MAXLINE+1: we will output  to the stream whatever we
+    /* CHELPER_MAXLINE+1: we will output  to the stream whatever we
        read from the socket, using fputs call. We need to reserve
        1 character for '\0'
     */
-    char buf[CNET_MAXLINE+1];
+    char buf[CHELPER_MAXLINE+1];
     fd_set rset;
     int nfds, streamfd;
     size_t readn;

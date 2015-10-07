@@ -38,8 +38,6 @@ char *sock_ntop(const SA *sa, socklen_t salen);
 void sock_write(int sockfd, const void *buf, size_t n);
 size_t sock_read(int sockfd, void *buf, size_t n);
 
-#define CNET_MAXLINE    1024
-
 size_t sock_readline(int sockfd, void *buf, size_t n);
 
 typedef void Sigfunc(int);
