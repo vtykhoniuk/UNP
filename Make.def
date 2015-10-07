@@ -10,18 +10,12 @@ ifneq ($(MAKECMDGOALS), clean)
         ifndef LIBCHELPER_PATH
             LIBCHELPER_PATH = $(LIBC_PATH)
         endif
-        ifndef LIBCNET_PATH
-            LIBCNET_PATH = $(LIBC_PATH)
-        endif
         ifndef LIBCARRAY_PATH
             LIBCARRAY_PATH = $(LIBC_PATH)
         endif
     else
         ifndef LIBCHELPER_PATH
             $(error LIBCHELPER_PATH not defined)
-        endif
-        ifndef LIBCNET_PATH
-            $(error LIBCNET_PATH not defined)
         endif
         ifndef LIBCARRAY_PATH
             $(error LIBCARRAY_PATH not defined)
@@ -32,10 +26,6 @@ endif
 LIBCHELPER_INCLUDE  = $(addprefix $(LIBCHELPER_PATH)/, include)
 LIBCHELPER_LIB      = $(addprefix $(LIBCHELPER_PATH)/, lib)
 LIBCHELPER          = chelper
-
-LIBCNET_INCLUDE     = $(addprefix $(LIBCNET_PATH)/, include)
-LIBCNET_LIB         = $(addprefix $(LIBCNET_PATH)/, lib)
-LIBCNET             = cnet
 
 LIBCARRAY_INCLUDE   = $(addprefix $(LIBCARRAY_PATH)/, include)
 LIBCARRAY_LIB       = $(addprefix $(LIBCARRAY_PATH)/, lib)
