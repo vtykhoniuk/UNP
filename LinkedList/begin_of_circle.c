@@ -1,5 +1,9 @@
 #include "CHelper.h"
 
+/* Given a circular linked list, implement an algorithm
+ * which returns the node at the beginning of the loop
+ */
+
 void checker(CLinkedList*);
 CLLNode *CLL_find_circle(CLinkedList*);
 
