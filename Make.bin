@@ -8,7 +8,6 @@
 # include ../Make.bin
 #
 # prog1: $(PROG1_OBJS)
-#   $(CC) $(CFLAGS) -o $@ $? $(LIBCERROR_STATIC) $(LIBCHELPER_STATIC)
 
 # Identify the path to the Makefile
 # We need this path to correctly include Make.def
@@ -16,6 +15,15 @@ PATH_TO_MYSELF  = $(dir $(lastword $(MAKEFILE_LIST)))
 MAKE_DEF        = $(addprefix $(PATH_TO_MYSELF), Make.def)
 $(info Make.def: $(MAKE_DEF))
 include $(MAKE_DEF)
+
+# All binary programs dened on CHelper
+# If there need to be more dependencies
+# LDFLAGS and LDLIBS should be updated,
+# using := to avoed recursive assignment
+#
+# LDLIBS := -lcarray ${LDLIBS}
+LDFLAGS         = -L$(LIBCHELPER_LIB)
+LDLIBS          = -lchelper
 
 CLEANFILES      = $(PROGS) $(OBJS)
 

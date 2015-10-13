@@ -7,8 +7,10 @@ OBJS = $(ROTATE_MATRIX_OBJS)
 
 include ../Make.bin
 
+LDFLAGS         := ${LDFLAGS} -L$(LIBCARRAY_LIB)
+LDLIBS          := ${LDLIBS} -lcarray
+
 rotate_matrix: $(ROTATE_MATRIX_OBJS)
-	$(CC) $(CFLAGS) -L$(LIBCHELPER_LIB) -L$(LIBCARRAY_LIB) -o $@ $? -l$(LIBCARRAY) -l$(LIBCHELPER)
 
 #snakeprint_matrix: $(SNAKEPRINT_MATRIX_OBJS)
 #	$(CC) $(CFLAGS) -L$(LIBCHELPER_LIB) -L$(LIBCARRAY_LIB) -o $@ $? -l$(LIBCARRAY) -l$(LIBCHELPER)
