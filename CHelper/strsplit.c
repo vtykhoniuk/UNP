@@ -1,18 +1,15 @@
 #include "CHelper.h"
 
-#include <string.h>
-
-CLinkedList* strsplit(const char *str, const char *delim)
+size_t strsplit(const char *str, const char *delim, ADS_LinkedList list)
 {
     assert(str != NULL);
     assert(strlen(str) > 0);
+    assert(list != NULL);
 
-    CLinkedList *result = CLL_create(sizeof(char*));
     const char *token_begin = str;
     const char *token_end = str;
     char *tmp;
     size_t n;
-    CLLNode *node;
 
     // While not end of the string
     while (*token_begin != '\0') {
@@ -33,8 +30,8 @@ CLinkedList* strsplit(const char *str, const char *delim)
         tmp[n-1] = '\0';
 
         // Create new list node
-        node = CLL_add_node(result, &tmp);
+        ADS_LinkedList_append_node(list, &tmp);
     }
 
-    return result;
+    return list->size;
 }

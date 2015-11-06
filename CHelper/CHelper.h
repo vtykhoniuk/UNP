@@ -31,13 +31,13 @@
 #include <string.h>
 #include <sys/wait.h>
 
+#include "ADS/linkedlist.h"
+
 /*
    read
    write
 */
 #include <unistd.h>
-
-#include "CLinkedList.h"
 
 #define CHELPER_MAXLINE	1024
 
@@ -105,9 +105,9 @@ size_t sock_readline(int sockfd, void *buf, size_t n);
 /*
    The function takes null termintated string 'str' and splits it
    in pieces using any of delimiter characters from 'delims'
-   The results are put into linked list 'result' that should be created
-   before running function and removed after
+   The results are put into linked list 'list' that should be allocated
+   before running function and destroyed after
 */
-CLinkedList* strsplit(const char *str, const char *delim);
+size_t strsplit(const char *str, const char *delim, ADS_LinkedList list);
 
 #endif // CHELPER_H

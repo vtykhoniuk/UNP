@@ -32,7 +32,7 @@ LIBCARRAY_LIB       = $(addprefix $(LIBCARRAY_PATH)/, lib)
 LIBCARRAY           = carray
 
 CC                  = cc
-CFLAGS              = -std=c99 -I. -I$(LIBCHELPER_INCLUDE) -O1 -Wall
+CFLAGS              = -std=c99 -I. -O1 -Wall
 
 .PHONY : all clean
 .DEFAULT_GOAL = all
