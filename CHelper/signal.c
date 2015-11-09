@@ -1,3 +1,9 @@
+// We have to do define this in order to use
+// sigaction wiht -std=c99 compiler option
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE 1
+#endif
+
 #include "CHelper.h"
 
 Sigfunc* signal(int signo, Sigfunc* func)
