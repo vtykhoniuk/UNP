@@ -5,6 +5,9 @@
 # LIB_INC = test.h
 # LIB_PIECES = test1 test2 test3
 # include ../Make.lib
+#
+# If you need to perform some local install activities
+# you should specify _install target
 
 AR              = ar
 INSTALL         = cp
@@ -26,7 +29,7 @@ all: $(LIB_OBJS)
 	$(info Constructing $(STATIC_LIB_NAME))
 	$(AR) rcs $(STATIC_LIB_NAME) $?
 
-install: all
+install: all _install
 ifndef INSTALL_PREFIX
 	$(error INSTALL_PREFIX is not defined)
 else
